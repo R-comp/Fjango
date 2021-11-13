@@ -12,4 +12,4 @@ class Score(models.Model):
     score=models.IntegerField(default=0)
 
     def __str__(self):
-        return self.std_name
+        return self.std_name + " " + self.subject + " " + str(self.score)
