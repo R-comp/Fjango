@@ -14,3 +14,6 @@ def showscore(request):
     score = Score.objects.all()
     context= {'score':score}
     return render(request,'showscore.html',context)
+
+def register(request):
+    return render(request,'register.html')
