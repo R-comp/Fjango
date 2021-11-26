@@ -18,6 +18,15 @@ def register(request):
         email = data.get('email')
         password = data.get('password')
         repassword = data.get('repassword')
+        if user_name=="" or user_name.strip()=="":
+            messages.info(request,"Please enter username")
+            return redirect('register') 
+        if email=="" or email.strip()=="":
+            messages.info(request,"Please enter email")
+            return redirect('register') 
+        if password=="" or password.strip()=="":
+            messages.info(request,"Please enter password")
+            return redirect('register') 
         if password==repassword:
             if User.objects.filter(username=user_name).exists():
                 messages.info(request,"Username already exists")
