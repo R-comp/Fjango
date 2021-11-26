@@ -2,7 +2,13 @@
 
 {% block content %}
   <div>
-    <h1><center>WELCOME TO NUJANGO</center></h1>
-    <p>Hello User</p>
+    <h1><b><center>WELCOME TO NUJANGO</center></b></h1>
   </div>
+  {% if messages %}
+        <div class="class alert alert-danger" role="alert">
+            {% for message in messages %}
+                <b>{{message}}</b><br>
+            {% endfor %}
+        </div>
+  {% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,auth
 from django.contrib import messages
 # Create your views here.
 def home(request):
@@ -45,3 +45,25 @@ def register(request):
             return redirect('register')
         return redirect('home')
     return render(request,'register.html')
+
+def login(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        user_name=data.get('user-name')
+        password=data.get('password')
+        
+        #login
+        user=auth.authenticate(username=user_name,password=password)
+        
+        if user is not None :
+            messages.info(request,'You are already login')
+            auth.login(request,user)
+            return redirect('home')
+        else :
+            messages.info(request,'Username or Password is incorrect')
+            return redirect('login')
+    return render(request,'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('home')
