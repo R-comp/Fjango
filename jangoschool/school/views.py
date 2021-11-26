@@ -16,10 +16,17 @@ def register(request):
         user_name = data.get('user-name')
         email = data.get('email')
         password = data.get('password')
-        newuser=User()
-        newuser.username=user_name
-        newuser.email=email
-        newuser.set_password(password)
-        newuser.save()   
+        repassword = data.get('repassword')
+        if password==repassword:
+            if User.objects.filter(username=user_name).exists():
+                return redirect('register')
+            elif User.objects.filter(email=email).exists():
+                return redirect('register')    
+            else:
+                newuser=User()
+                newuser.username=user_name
+                newuser.email=email
+                newuser.set_password(password)
+                newuser.save()   
         return redirect('home')
     return render(request,'register.html')
