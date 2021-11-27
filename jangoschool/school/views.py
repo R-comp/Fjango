@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User,auth
+from django.contrib.auth import login,authenticate
 from django.contrib import messages
 # Create your views here.
 def home(request):
@@ -55,8 +56,7 @@ def login(request):
         #login
         user=auth.authenticate(username=user_name,password=password)
         
-        if user is not None :
-            messages.info(request,'You are already login')
+        if user is not None:
             auth.login(request,user)
             return redirect('home')
         else :
