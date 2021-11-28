@@ -3,14 +3,10 @@ from .models import *
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import login,authenticate
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     return render(request,'home.html')
-
-def showscore(request):
-    score = Score.objects.all()
-    context= {'score':score}
-    return render(request,'showscore.html',context)
 
 def register(request):
     if request.method=='POST':
@@ -67,3 +63,9 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+@login_required
+def showscore(request):
+    score = Score.objects.all()
+    context= {'score':score}
+    return render(request,'showscore.html',context)
