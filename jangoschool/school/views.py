@@ -41,7 +41,8 @@ def register(request):
             messages.info(request,"Password mismatch")
             return redirect('register')
         return redirect('home')
-    return render(request,'register.html')
+    else:
+        return render(request,'register.html')
 
 def login(request):
     if request.method == 'POST':
