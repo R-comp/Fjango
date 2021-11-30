@@ -13,3 +13,5 @@ class Score(models.Model):
 
     def __str__(self):
         return self.std_name + " " + self.subject + " " + str(self.score)
+
+user=models.CharField(max_length=250,null=False,default='unknown user')
