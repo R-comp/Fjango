@@ -9,6 +9,8 @@ def home(request):
     return render(request,'home.html')
 
 def register(request):
+    if request.user.is_authenticated:
+        return render(request,'home.html')
     if request.method=='POST':
         data = request.POST.copy()
         user_name = data.get('user-name')
@@ -45,6 +47,8 @@ def register(request):
         return render(request,'register.html')
 
 def login(request):
+    if request.user.is_authenticated:
+        return render(request,'home.html')
     if request.method == 'POST':
         data = request.POST.copy()
         user_name=data.get('user-name')
@@ -59,7 +63,8 @@ def login(request):
         else :
             messages.info(request,'Username or Password is incorrect')
             return redirect('login')
-    return render(request,'login.html')
+    else:
+        return render(request,'login.html')
 
 def logout(request):
     auth.logout(request)
